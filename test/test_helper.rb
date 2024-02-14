@@ -2,6 +2,12 @@ ENV["RAILS_ENV"] ||= "test"
 require_relative "../config/environment"
 require "rails/test_help"
 
+require "capybara/cuprite"
+Capybara.javascript_driver = :cuprite
+Capybara.register_driver(:cuprite) do |app|
+  Capybara::Cuprite::Driver.new(app, window_size: [1200, 800])
+end
+
 module ActiveSupport
   class TestCase
     # Run tests in parallel with specified workers
